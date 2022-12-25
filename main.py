@@ -64,7 +64,6 @@ async def ban_user(message: types.Message):
 
 @dp.message_handler(content_types=types.ContentType.all())
 async def text_message(message: Message):
-    print(message.content_type)
     supported_content_types=['document', 'text', 'photo', 'audio', 'video','animation']
     if message.content_type not in supported_content_types:
         await message.answer(f"Sorry, your message wasn't delivered. You can't send {message.content_type} to the Support bot.", parse_mode="Markdown")
