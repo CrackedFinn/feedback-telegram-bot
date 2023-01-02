@@ -93,7 +93,8 @@ async def text_message(message: Message):
                     extractedID=message.reply_to_message.text.split("#")[-1]
                 else:
                     extractedID=message.reply_to_message.caption.split("#")[-1]
-                await bot.copy_message(chat_id=extractedID, message_id=message.message_id, from_chat_id=message.chat.id)
+                try:
+                    await bot.copy_message(chat_id=extractedID, message_id=message.message_id, from_chat_id=message.chat.id)
             else:
                 await message.answer("Reply to a particular message to answer it", parse_mode="Markdown")
 
