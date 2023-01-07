@@ -95,6 +95,7 @@ async def text_message(message: Message):
                 try:
                     await bot.copy_message(chat_id=extractedID, message_id=message.message_id, from_chat_id=message.chat.id)
                 except:
+                    await bot.send_message(chat_id=admin_id, text=f"We were unable to send your reply to the user {extractedID}")
                     pass
             else:
                 await message.answer("Reply to a particular message to answer it", parse_mode="Markdown")
