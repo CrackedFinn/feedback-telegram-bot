@@ -4,11 +4,14 @@ import aiomysql
 from aiomysql import Error
 from dotenv import load_dotenv
 
+# Load secrets from environment
 load_dotenv()
+
 # - - - - - - - - - - #
 loop = asyncio.get_event_loop()
 
 
+# Connect to the database with credentials
 async def connect_db():
     try:
         connection = await aiomysql.connect(
@@ -29,6 +32,7 @@ async def connect_db():
         print("Error while connecting to MySQL", e)
 
 
+# Get database cursor
 async def get_cursor():
     global mydb
     try:
@@ -44,6 +48,7 @@ mydb = loop.run_until_complete(connect_db())
 # - - - - - - - - - - #
 
 
+# Function to ban user by Telegram ID
 async def BanUser(UserIDToBan):
     async with await get_cursor() as cur:
         sql = "INSERT INTO SupportBotIDBan (TelegramUserID) VALUES (%s)"
@@ -52,6 +57,7 @@ async def BanUser(UserIDToBan):
         await mydb.commit()
 
 
+# Function to check if user is banned
 async def CheckUser(uid):
     async with await get_cursor() as cur:
         sql = "SELECT * FROM SupportBotIDBan WHERE TelegramUserID = %s"

@@ -4,25 +4,34 @@ import os
 from dotenv import load_dotenv
 import mysql_database
 
+# Load secrets from environment
 load_dotenv()
 
+# Get bot token for API
 bot = Bot(token=os.getenv('TOKEN'))
+
+# Get admin Telegram ID
 admin_id = os.getenv('ADMIN_ID')
 dp = Dispatcher(bot)
 
 
-@dp.message_handler(commands=['start'])  # Run after /start command
+# Run after /start command
+@dp.message_handler(commands=['start'])
 async def send_welcome(message: types.Message):
     await message.answer("🛠️ *Hi!*\n\nWrite your question here and we will answer it as soon as possible.",
                          parse_mode="Markdown")
 
 
-@dp.message_handler(commands=['ban'])  # Run after /ban command
+# Run after /ban command
+@dp.message_handler(commands=['ban'])
 async def ban_user(message: types.Message):
-    if int(message.chat.id) != int(admin_id):  # USER EXPERIENCE
+    # USER EXPERIENCE
+    if int(message.chat.id) != int(admin_id):
         await message.answer("You can't use this command", parse_mode="Markdown")
-    else:  # ADMIN EXPERIENCE
+    # ADMIN EXPERIENCE
+    else:
         if message.reply_to_message:
+            # Extract Telegram ID from the message
             if message.reply_to_message.content_type == 'text':
                 extractedID = message.reply_to_message.text.split("#")[-1]
             else:
@@ -33,15 +42,18 @@ async def ban_user(message: types.Message):
             await message.answer("Reply to a particular message to answer it", parse_mode="Markdown")
 
 
+# Handle all content types that user sends
 @dp.message_handler(content_types=types.ContentType.all())
 async def text_message(message: Message):
+    # Types of content that can be forwarded
     supported_content_types = ['document', 'text', 'photo', 'audio', 'video', 'animation']
     if message.content_type not in supported_content_types:
         await message.answer(
             f"Sorry, your message wasn't delivered. You can't send {message.content_type} to the Support bot.",
             parse_mode="Markdown")
     else:
-        if int(message.chat.id) != int(admin_id):  # USER EXPERIENCE
+        # USER EXPERIENCE
+        if int(message.chat.id) != int(admin_id):
             myresult = await mysql_database.CheckUser(message.chat.id)
             if len(myresult) > 0:  # User is banned
                 await message.answer("You were banned from the bot.", parse_mode="Markdown")
@@ -55,6 +67,7 @@ async def text_message(message: Message):
 
         else:  # ADMIN EXPERIENCE
             if message.reply_to_message:
+                # Extract Telegram ID from the message
                 if message.reply_to_message.content_type == 'text':
                     extractedID = message.reply_to_message.text.split("#")[-1]
                 else:
@@ -70,5 +83,6 @@ async def text_message(message: Message):
                 await message.answer("Reply to a particular message to answer it", parse_mode="Markdown")
 
 
+# Start the bot
 if __name__ == '__main__':
     executor.start_polling(dp, skip_updates=False)
