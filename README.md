@@ -1,6 +1,6 @@
 # Telegram Feedback bot
 
-Introducing Telegram Feedback bot, designed for seamless, anonymous communication with users. With this bot, users can submit questions or feedback, and you can effortlessly respond by simply replying to their messages. This bot is powered by Aiogram and leverages a MySQL database.
+Feedback Bot is designed for easy and anonymous communication with Telegram users. With this bot, users can submit questions or feedback, and you can respond by simply replying to their messages within the bot. This project is powered by Aiogram and requires the use of a MySQL database.
 
 ![](https://github.com/matt-novoselov/Feedback-Telegram-Bot/blob/ca940ac3af5c2b98faa5f593621e0031c8261556/Thumbnail.png)
 
