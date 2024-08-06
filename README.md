@@ -4,9 +4,6 @@ Feedback Bot is designed for easy and anonymous communication with Telegram user
 
 ![](https://github.com/matt-novoselov/Feedback-Telegram-Bot/blob/ca940ac3af5c2b98faa5f593621e0031c8261556/Thumbnail.png)
 
-[![Telegram Bot](https://github.com/matt-novoselov/matt-novoselov/blob/4fddb3cb2c7e952d38b8b09037040af183556a77/Files/telegram_button.svg)](https://t.me/NoveSupportBot)
-
-[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template/UwAyn7?referralCode=RmyABJ)
 
 ## Requirements
 - Python 3.8
